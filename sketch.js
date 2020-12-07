@@ -1,11 +1,12 @@
 var dog;
-var food,foodS;
+var food;
+var foodS;
 var dataBase;
 
 function preload()
 {
-  dog1 = loadImage("images/dogImg.png");
-  dog2 = loadImage("images/dogImg1.png");
+  dog1 = loadImage("dogImg.png");
+  dog2 = loadImage("dogImg1.png");
 
 	//load images here
 }
@@ -34,7 +35,7 @@ function draw() {
   stroke(255,0,0);
   text("FOOD REMAINING :" + food ,300,100);
 
-  if(keyDown("UP_ARROW")){
+  if(keyDown("UP_ARROW") && food !== 0){
     writeStock(foodS);
     dog.addImage(dog2);
   }
@@ -42,20 +43,14 @@ function draw() {
   drawSprites();
 }
 
-function readStock(){
+function readStock(data){
 food = data.val();
 }
 
-function writeStock(FOOD){
+function writeStock(x){
 
-if(FOOD <= 0){
-  FOOD = 0;
-}else{
-  FOOD = FOOD - 1;
-}
-
-dataBase.ref('/').update({
-  Food : FOOD
+dataBase.ref('value').update({
+  Food : x
 })
 
 }
